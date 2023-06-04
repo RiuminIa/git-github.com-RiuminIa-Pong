@@ -1,0 +1,134 @@
+/* #pole{
+    position: relative;
+    background-color: black;
+    width: 700px;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    top: 29px;
+}
+.wall{
+    position: absolute;
+    background-color: green;
+}
+#topWall{
+    top: 0%;
+    width: 100%;
+    height: 5%;
+}
+#leftWall{
+    left: 0%;
+    width: 5%;
+    height: 100%;
+}
+#rightWall{
+    right: 0%;
+    width: 5%;
+    height: 100%;
+}
+#bottomWall{
+    bottom: 0%;
+    width: 100%;
+    height: 5%;
+}
+.blackHoll{
+    position: absolute;
+    background-color: black;
+}
+#blackHollLeft{
+    left: 0%;
+    top:10%;
+    width: 100%;
+    height: 80%;
+}
+#blackHollBottom{
+    left:10%;
+    bottom:0%;
+    width: 80%;
+    height: 100%;
+}
+#blackHollRight{
+    right: 0%;
+    top:10%;
+    width: 100%;
+    height: 80%;
+}
+#blackHollTop{
+    left: 10%;
+    top:0%;
+    width: 80%;
+    height: 100%;
+}
+#playerLeft{
+    position: absolute;
+    background-color: aqua;
+    left: 0%;
+    top:35%;
+    width: 100%;
+    height: 30%;
+}
+#playerTop{
+    position: absolute;
+    background-color: aqua;
+    left: 35%;
+    top:0%;
+    width: 30%;
+    height: 100%;
+}
+#playerRight{
+    position: absolute;
+    background-color: aqua;
+    right: 0%;
+    top:35%;
+    width: 100%;
+    height: 30%;
+}
+#playerBottom{
+    position: absolute;
+    background-color: aqua;
+    left: 35%;
+    bottom:0%;
+    width: 30%;
+    height: 100%;
+}
+#ball{
+    position: absolute;
+    background-color: red;
+    left: 40.5%;
+    top: 40.5%;
+    width: 3%;
+    height: 3%;
+    text-align: center;
+    font-size: 11px;
+    border-radius:50%;
+}
+#leftData{
+    position: absolute;
+    left: -521%;
+}
+#rightData{
+    position: absolute;
+    right: -521%;
+}
+#topData{
+    position: absolute;
+    top: -521%;
+}
+#bottomData{
+    position: absolute;
+    bottom: -521%;
+}
+#dialog{
+    color: black;
+    position: absolute;
+    width: 165px;
+    left: 42%;
+    top: 35%;
+    z-index: 6;
+    height: max-content;
+    background-color: #9e9e9ed6;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-radius: 10px;
+} */

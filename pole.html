@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>home</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap.min.js"></script>
+        <link type="text/css" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap.min.css" rel="stylesheet"> 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+        <style>
+        #pole{
+            position: relative;
+            background-color: black;
+            width: 700px;
+            height: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            top: 29px;
+        }
+        .wall{
+            position: absolute;
+            background-color: green;
+        }
+        #topWall{
+            top: 0%;
+            width: 100%;
+            height: 5%;
+        }
+        #leftWall{
+            left: 0%;
+            width: 5%;
+            height: 100%;
+        }
+        #rightWall{
+            right: 0%;
+            width: 5%;
+            height: 100%;
+        }
+        #bottomWall{
+            bottom: 0%;
+            width: 100%;
+            height: 5%;
+        }
+        .blackHoll{
+            position: absolute;
+            background-color: black;
+        }
+        #blackHollLeft{
+            left: 0%;
+            top:10%;
+            width: 100%;
+            height: 80%;
+        }
+        #blackHollBottom{
+            left:10%;
+            bottom:0%;
+            width: 80%;
+            height: 100%;
+        }
+        #blackHollRight{
+            right: 0%;
+            top:10%;
+            width: 100%;
+            height: 80%;
+        }
+        #blackHollTop{
+            left: 10%;
+            top:0%;
+            width: 80%;
+            height: 100%;
+        }
+        #playerLeft{
+            position: absolute;
+            background-color: aqua;
+            left: 0%;
+            top:35%;
+            width: 100%;
+            height: 30%;
+        }
+        #playerTop{
+            position: absolute;
+            background-color: aqua;
+            left: 35%;
+            top:0%;
+            width: 30%;
+            height: 100%;
+        }
+        #playerRight{
+            position: absolute;
+            background-color: aqua;
+            right: 0%;
+            top:35%;
+            width: 100%;
+            height: 30%;
+        }
+        #playerBottom{
+            position: absolute;
+            background-color: aqua;
+            left: 35%;
+            bottom:0%;
+            width: 30%;
+            height: 100%;
+        }
+        body{
+            background-color: #0d2e2e;
+            color: white;
+        }
+        #ball{
+            position: absolute;
+            background-color: white;
+            left: 40.5%;
+            top: 40.5%;
+            width: 3%;
+            height: 3%;
+            text-align: center;
+            font-size: 11px;
+            border-radius:50%;
+        }
+        #leftData{
+            position: absolute;
+            left: -610%;
+            top: 41%;
+        }
+        #rightData{
+            position: absolute;
+            right: -630%;
+            top: 41%;
+        }
+        #topData{
+            position: absolute;
+            top: -129%;
+            left: -24%;
+        }
+        #bottomData{
+            position: absolute;
+            bottom: -83%;
+            left: -31%;
+        }
+        #dialog{
+            color: black;
+            position: absolute;
+            width: 165px;
+            left: 45%;
+            top: 35%;
+            z-index: 6;
+            height: max-content;
+            background-color: #9e9e9ed6;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            border-radius: 10px;
+        }</style>
+        <link rel="stylesheet" type="text/css" href="./style.css"> 
+    </head>
+    <body>
+        <div id="msg" style="position: relative;width: 100%;text-align: center;">
+           
+        </div>
+        <div id="dialog">
+            <div class="m-3">
+                <label for="InputName" class="form-label">Name:</label>
+                <input type="text" name="jedlo" class="form-control" id="InputName" value="player" required>
+            </div>
+            <button id="playBtn" class="btn btn-primary m-1">play</button>
+            <button id="waitBtn" class="btn btn-primary m-1">wait for players</button>
+            <br>waiting players:<p></p>
+        </div>
+    <div id="pole">
+        <div class="wall" id="topWall">
+            <div id="topData" hidden>
+                <h2 class="name">name:</h2>
+                <h2 class="heal">health:</h2>
+                <h2 class="count">count:</h2>
+            </div>
+
+            <div class="blackHoll" hidden id="blackHollTop">
+            </div>
+            <div id="playerTop" hidden>
+
+            </div>  
+        </div>
+        <div class="wall" id="leftWall">
+            <div id="leftData" hidden>
+                <h2 class="name">name:</h2>
+                <h2 class="heal">health:</h2>
+                <h2 class="count">count:</h2>
+            </div>
+
+            <div class="blackHoll" hidden id="blackHollLeft">
+               
+            </div>
+            <div id="playerLeft" hidden>
+
+            </div>
+        </div>
+        <div class="wall" id="rightWall">
+            <div id="rightData" hidden>
+                <h2 class="name">name:</h2>
+                <h2 class="heal">health:</h2>
+                <h2 class="count">count:</h2>
+            </div>
+
+            <div class="blackHoll" hidden  id="blackHollRight">
+                  
+            </div>
+            <div id="playerRight" hidden>
+
+            </div> 
+        </div>
+        <div class="wall" id="bottomWall" >
+            <div id="bottomData" hidden>
+                <h2 class="name">name:</h2>
+                <h2 class="heal">health:</h2>
+                <h2 class="count">count:</h2>
+            </div>
+
+            <div class="blackHoll" hidden  id="blackHollBottom">
+                
+            </div>
+            <div id="playerBottom" hidden>
+
+            </div>  
+        </div>
+        <div id="ball"></div>
+    </div>
+    <script>
+        var glob;
+        var name="player";
+        var actualTop=35;
+        var w,s,a,d;
+        var countId;
+        var waiting;
+        var status='wait';
+        var listHolls=[['blackHollTop','playerTop','topData',2],['blackHollLeft','playerLeft','leftData',0],['blackHollRight','playerRight','rightData',1],['blackHollBottom','playerBottom','bottomData',3]];
+        $(document).ready(function () {
+            var ws;
+            var actualPlayer='playerLeft';
+            var vertical=true;
+            var firstMsg=false;
+            try{
+                ws = new WebSocket("wss://site203.webte.fei.stuba.sk:9000");
+            }
+            catch(Error){
+                $("#msg").val("error");
+            }
+			ws.onopen = function () { $("#msg").text("connected")};
+			ws.onerror = function (error) { $("#msg").text("error"+ JSON.stringify(error)) };
+			ws.onmessage = function (e) {  
+                                    // if(!firstMsg){
+                                    //     firstMsg=true;
+                                    // }
+                                    var data = JSON.parse(e.data);
+                                    initial(data);
+                                    // send();
+                                  };
+			ws.onclose = function () { $("#msg").html($("#msg").text()+"<br>Connection closed - Either the host or the client has lost connection"); }   
+            
+            function initial(data){
+                if(data.first!='true'){
+                    $('#playBtn').attr("hidden",true);
+                    $('#waitBtn').attr("hidden",false);
+                }
+                else{
+                    $('#playBtn').attr("hidden",false);
+                    $('#waitBtn').attr("hidden",true);
+                }
+                
+                //$('#count').text(data.count);
+                if (data.status=='lose'){
+                    $('#msg').text('You lose');
+                    $('#'+countId+' .heal').text('health: 0')
+                }
+                if(data.status=='run'){
+                actualPlayer=data.id;
+                if(status=='wait'){
+                    status='play';
+                    $('#'+actualPlayer).css('background-color','#e64a4a');
+                    send();
+                }
+                $('#waitBtn').prop('disabled', false);
+                $('#dialog').attr("hidden",true);
+                $('#ball').css({
+                    top: data.ballY+'%',
+                    left:data.ballX+'%'
+                })
+                if(actualPlayer=='playerLeft' || actualPlayer=='playerRight'){
+                    vertical=true;
+                } 
+                else{
+                    vertical=false;
+                }
+                listHolls.forEach(element => {
+                    if(data.coords[element[0]]!=null){
+                        $('#'+element[0]).removeAttr('hidden');
+                        $('#'+element[1]).removeAttr('hidden');
+                        $('#'+element[2]).removeAttr('hidden');
+                        $('#'+element[2]+' .name').text('name: '+data.players[element[3]]['name'])
+                        $('#'+element[2]+' .heal').text('health: '+data.players[element[3]]['hels'])
+                        if(data.divId!=element[0]){
+                            if(element[1]=='playerLeft' || element[1]=='playerRight'){
+                                $('#'+element[1]).css({
+                                top: data.coords[element[0]]+'%'
+                                    });
+                            }
+                            else{
+                                $('#'+element[1]).css({
+                                left: data.coords[element[0]]+'%'
+                                    });
+                            }
+                            $('#'+element[2]+' .count').text("")
+                        }
+                        else{
+                            countId=element[2];
+                            $('#'+element[2]+' .count').text('count: '+data.count)
+                            $('#'+element[2]).css('color','#e64a4a');
+                        }
+                    }
+                    else{
+                        $('#'+element[0]).attr("hidden",true);
+                        $('#'+element[1]).attr("hidden",true);
+                        $('#'+element[2]).attr('hidden',true);
+                    }
+                });
+            }
+            else if(data.status=='wait'){
+                $('#dialog').attr("hidden",false);
+                $("#dialog p").text(data.waiting);
+                waiting=data.waiting;
+                // name=name+data.waiting;
+            }
+        }
+            // $('#playBtn').click(function(){
+        
+            // }
+
+            function send() {
+				$Msg = $("#msg");
+				try {
+                    if (vertical){
+                        top=w;
+                        down=s;   
+                    }
+                    else{
+                        top=a;
+                        down=d;
+                    }
+                    x='[{"name":"'+name+'","coord":"'+actualTop+'","top":"'+top+'","down":"'+down+'","status":"'+status+'"}]';    
+    				if(status=='play'){
+                        ws.send(x);
+                    }
+    				} catch (exception) {
+    					$Msg.text(exception);
+    				}
+    				//$Msg.val("");
+			} 
+            $('#playBtn').click(function(){
+                $('#dialog').attr("hidden",true);
+                name=$('#InputName').val();
+                if(name=='' || name=='player'){
+                    name='player1'
+                }
+                status='play';
+                $('#'+actualPlayer).css('background-color','#e64a4a');
+                $('#leftData').css('color','#e64a4a');
+                send();
+            });
+            $('#waitBtn').click(function(){
+                x='[{"name":"'+name+'","status":"wait"}]';
+                $('#waitBtn').prop('disabled', true);
+                name=$('#InputName').val();
+
+                if(name=='' || name=='player'){
+                    name='player'+(waiting+1);
+                }
+                status='wait'
+                ws.send(x);
+            });
+
+
+
+        
+        document.onkeydown=function(){
+        var name = event.key;
+        var code = event.code;
+        if(vertical){
+            switch(name){
+                case 'w':
+                case 'W':
+                    w=true;
+                    break
+                case 's':
+                case 'S':
+                    s=true;
+                    //w=false;   
+                    break;
+            }
+       }
+       else{
+        switch(name){
+                case 'a':
+                case 'A':
+                    a=true;
+                    break
+                case 'd':
+                case 'D':
+                    d=true;
+                    //w=false;   
+                    break;
+            }
+       }
+       }
+       document.onkeyup=function(){
+        var name = event.key;
+        var code = event.code;
+        switch(name){
+                case 'w':
+                case 'W':
+                    w=false;
+                    break
+                case 's':
+                case 'S':
+                    s=false;
+                    break;
+                case 'a':
+                case 'A':
+                    a=false;
+                    break
+                case 'd':
+                case 'D':
+                    d=false;
+                    break;    
+            }
+            send();
+       }
+       setInterval(function() {
+        if(vertical){
+            $('#'+actualPlayer).css({
+                top: topChange()+'%'
+            });
+        }
+        else{
+            $('#'+actualPlayer).css({
+                left: topChange()+'%'
+            });
+        }
+        }, 7);
+        function topChange(){
+            if(vertical){
+                if(w&&!s){
+                actualTop-=0.5;
+                if(actualTop<=10){
+                    actualTop=10;
+                }
+            }
+            else if(s&&!w){
+                actualTop+=0.5;
+                if(actualTop>=60){
+                    actualTop=60;
+                }
+            }
+            }
+            else{
+                if(a&&!d){
+                actualTop-=0.5;
+                if(actualTop<=10){
+                    actualTop=10;
+                }
+            }
+            else if(d&&!a){
+                actualTop+=0.5;
+                if(actualTop>=60){
+                    actualTop=60;
+                }
+            }
+            }
+            if(w||a||s||d){
+                send();
+            }
+            return actualTop;
+        }
+        
+        
+        
+        });
+        
+    </script>
+    </body>
+</html>
